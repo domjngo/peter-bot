@@ -1,3 +1,7 @@
 # peter-bot
 
-Twitter Chatbot
+## Twitter Chatbot
+
+Features
+* NLTK chat
+* Tweepy
