@@ -13,17 +13,18 @@ def remove_stop_words(text):
 
 def reply(auth, tweet):
     api = tweepy.API(auth)
-    pattern = re.compile('(.*) (would like to know|would like find|trying to find) (.*)')
     try:
         tweetId = tweet.id
         username = tweet.user.screen_name
-        if pattern.match(tweet):
-            tweet = remove_stop_words(tweet)
-            result = search.search_guides(tweet)
+        text = tweet.text
+        text = text.replace('@starlord_p ', '')
+        if text.find('would like to know'):
+            text = text.replace('would like to know', '')
+            text = remove_stop_words(text)
+            print(text)
+            result = search.search_guides(text)
             api.update_status("@" + username + " " + result, in_reply_to_status_id=tweetId)
         else:
-            text = tweet.text
-            text = text.replace('@starlord_p ', '')
             phrase = Chat(pairs.eliza(), reflections).respond(text)
             api.update_status("@" + username + " " + phrase, in_reply_to_status_id=tweetId)
             print("Tweet : " + text)
