@@ -5,9 +5,6 @@ import contextlib
 from urllib.parse import urlencode
 from urllib.request import urlopen
 
-# Just some sample keywords to search for in the title
-key_words = 'army navy'
-
 
 def make_tiny(url):
     request_url = ('http://tinyurl.com/api-create.php?' +
@@ -55,6 +52,3 @@ def search_guides(query):
 
     return '{} {}'.format(top_result[1], top_result[2])
 
-
-
-search_guides(key_words)
