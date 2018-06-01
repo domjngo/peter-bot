@@ -19,7 +19,7 @@ def reply(auth, tweet):
         text = tweet.text
         text = text.replace('@starlord_p ', '')
         if text.find('would like to know'):
-            text = text.replace('would like to know', '')
+            text = text.replace('I would like to know', '')
             text = remove_stop_words(text)
             print(text)
             result = search.search_guides(text)

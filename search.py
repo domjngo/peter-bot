@@ -33,7 +33,9 @@ def search_guides(query):
         url = make_tiny(url)
         title = key['title']
         content = key['content'][0]['value']
-        i = contains_wanted(query, content.lower())
+        c = contains_wanted(query, content.lower())
+        t = contains_wanted(query, title.lower())
+        i = c + (t*2)
 
         if i > 0:
             result = '{} - {} - {}'.format(i, title, url)
