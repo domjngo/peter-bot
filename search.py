@@ -1,7 +1,7 @@
 from __future__ import with_statement
 
 import feedparser
-import contextlib
+import contextlib2
 from urllib.parse import urlencode
 from urllib.request import urlopen
 
@@ -9,7 +9,7 @@ from urllib.request import urlopen
 def make_tiny(url):
     request_url = ('http://tinyurl.com/api-create.php?' +
                    urlencode({'url':url}))
-    with contextlib.closing(urlopen(request_url)) as response:
+    with contextlib2.closing(urlopen(request_url)) as response:
         return response.read().decode('utf-8')
 
 
@@ -30,7 +30,6 @@ def search_guides(query):
 
     for key in feed["entries"]:
         url = key['link'].replace('livelb', 'www')
-        url = make_tiny(url)
         title = key['title']
         content = key['content'][0]['value']
         c = contains_wanted(query, content.lower())
@@ -50,7 +49,9 @@ def search_guides(query):
             n += 1
 
     top_result = max(results, key=lambda x: x[0])
-    print('{} {}'.format(top_result[1], top_result[2]))
+    guide = top_result[1]
+    guide_url = make_tiny(top_result[2])
+    print('{} {}'.format(guide, guide_url))
 
-    return '{} {}'.format(top_result[1], top_result[2])
+    return '{} {}'.format(guide, guide_url)
 

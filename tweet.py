@@ -23,7 +23,7 @@ def reply(auth, tweet):
             text = remove_stop_words(text)
             print(text)
             result = search.search_guides(text)
-            api.update_status("@" + username + " " + result, in_reply_to_status_id=tweetId)
+            api.update_status("@" + username + " Maybe this guide could help: " + result, in_reply_to_status_id=tweetId)
         else:
             phrase = Chat(pairs.eliza(), reflections).respond(text)
             api.update_status("@" + username + " " + phrase, in_reply_to_status_id=tweetId)
